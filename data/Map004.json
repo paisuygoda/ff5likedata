@@ -1,0 +1,13 @@
+{
+"autoplayBgm":true,"autoplayBgs":false,"battleback1Name":"Grassland","battleback2Name":"Grassland","bgm":{"name":"FF5 - Four Valiant Hearts","pan":0,"pitch":100,"volume":90},"bgs":{"name":"","pan":0,"pitch":100,"volume":90},"disableDashing":true,"displayName":"サイファ","encounterList":[],"encounterStep":30,"height":0,"note":"","parallaxLoopX":false,"parallaxLoopY":false,"parallaxName":"","parallaxShow":true,"parallaxSx":0,"parallaxSy":0,"scrollType":3,"specifyBattleback":false,"tilesetId":2,"width":0,
+"data":[],
+"events":[
+null,
+null,
+null,
+null,
+null,
+null,
+null
+]
+}

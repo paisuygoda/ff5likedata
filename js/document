@@ -1,0 +1,62 @@
+(?<!skill)equip
+
+戦闘の流れメモ
+
+
+Scene_Battleからコマンドに応じてBattleManager.inputtingAction().set**()を呼ぶ
+		.inputtingAction()は入力中のアクション
+		.setAttack()はスキルIDだけ渡す
+	攻撃や防御などの規定コマンドの場合commandAttackが直接 setAttack を呼ぶ
+	skillの場合はskillwindowを開くだけだが、sceneの方で決定がonSkillOkにbindされており、これがsetSkillを呼ぶ
+その後onSelectAction
+	対象選択が必要な場合はselectEnemySelection・selectActorSelectionを開く
+	onEnemyOkがBattleManager.inputtingAction().setTargetで対象を渡す
+	
+
+BattleManager.startAction
+	phaseをアクションに切り替えてsubject.useItem(コスト支払い)this._logWindow.startActionを呼ぶ
+	実質的な1行動の起点？
+Window_BattleLog.prototype.startAction
+	アクションに絡む命令群を自身のキューに入れる
+	performActionStart, waitForMovement, performAction, showAnimation
+	最後にdisplayActionを呼ぶ、これは本当にバトルログに表示する操作
+	performActionStartで一歩前に出る
+	showAnimation はツクールで設定できるアニメーションエフェクトのことでアクターの動きとは無関係
+Window_BattleLog.prototype.performAction
+	subjectに入ったアクターのperformActionを呼ぶ
+Game_Actor.prototype.performAction
+	たたかう・魔法・スキル・ガードのざっくり基準でアクターにアニメーションさせる
+	分岐先のperform**で引数付きのrequestMotion('**')を呼ぶ
+Game_Battler.prototype.requestMotion
+	Game_Battler._motionTypeをセット
+	セットされることでGame_Battler.prototype.isMotionRequestedがtrueを返すようになる
+
+
+Sprite_Actor.prototype.updateMotion
+	Sprite_Actor.prototype.setupMotionを呼ぶ
+Sprite_Actor.prototype.setupMotion
+	this._actor.isMotionRequested()がtrueの時
+		this.startMotion(this._actor.motionType())
+		actorの_motiontypeと_motionRefreshを切る
+Sprite_Actor.prototype.updateMotionの続き
+	武器アニメを指定
+	this.updateMotionCount()を呼ぶ
+Sprite_Actor.prototype.updateMotionCount
+	_motionCountを増やす
+
+
+BattleManager.updateAction
+	targetsから一人取り出す(いなければendActionに移る)
+	invokeActionを呼ぶ
+BattleManager.invokeAction
+	this._action.apply(realTarget)を呼ぶ
+Game_Action.prototype.apply
+	命中判定
+	当たってたらダメージ計算
+	追加効果処理
+
+シナリオ進行度
+0 オープニング終了
+1 ディーナ加入
+2 アスカル加入
+3 風のジョブ開放
