@@ -228,9 +228,7 @@
       this.substituteBeforeAnim();
       // Actionがたたかう派生系であることの確認
       if (this._subject.isActor() && this._action.applyDualWield()) {
-        var equips = this._subject.equips();
-        var bareHands =
-          equips[0] && equips[1] && equips[0].id == 1 && equips[1].id == 1;
+        const bareHands = this._subject.isBareHands();
         if (!this._dualWielding && (this._subject.weapons()[1] || bareHands)) {
           this._dualWielding = true;
           if(!bareHands) {
@@ -299,7 +297,8 @@
       // 対象の在不在にかかわらず実行する特殊処理
       this._action.applyNoTargetSpecialSkills();
 
-      if (this._dualWielding && this._subject._equips[0]._itemId === 0) {
+      if (this._subject.isActor() && this._dualWielding && this._subject._equips[0]._itemId === 0) {
+        // ここのfalse消してもよさそう
         this._dualWielding = false;
         this._subject._equips[0] = this._tempWeapon;
       }
@@ -348,6 +347,9 @@
   BattleManager.updatePostDamage = function () {
     if (this._waitAnim > 0) this._waitAnim--;
     else if (!this._logWindow.isBusy()) {
+      if (this._subject.isActor() && this._subject.isBareHands()) {
+        this._dualWielding = false;
+      }
       this.endAction();
       this._phase = "turn";
     }

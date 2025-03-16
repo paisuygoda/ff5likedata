@@ -1089,10 +1089,6 @@
 			}
 		}
 	};
-	Window_Base.prototype.drawActorFace = function(actor, x, y, width, height) {
-		if (actor && actor.isStateAffected(12)) this.drawFace('Frog', 0, x, y, width, height);
-		else this.drawFace(actor.faceName(), actor.faceIndex(), x, y, width, height);
-	};
 	var MyStEf_SpBa_initMembers = Sprite_Battler.prototype.initMembers;
 	Sprite_Battler.prototype.initMembers = function() {
 		MyStEf_SpBa_initMembers.call(this);

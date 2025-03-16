@@ -118,7 +118,7 @@
 			&& this._mp >= this.skillMpCost(skill) 
 			&& this.haveSatisfyingSkill(skill.stypeId, skill.abilityLevel)
 			// トランスは1戦闘に一回
-			&& skill.id == 74 ? !this._transed : true;
+			&& (skill.id == 74 ? !this._transed : true);
 	};
 
 	Game_BattlerBase.prototype.haveSatisfyingSkill = function(skillType, abilityLevel) {

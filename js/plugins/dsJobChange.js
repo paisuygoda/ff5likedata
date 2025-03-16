@@ -555,8 +555,8 @@ Imported.dsJobChange = true;
     Sprite_ActorFace.prototype = Object.create(Sprite.prototype);
     Sprite_ActorFace.prototype.constructor = Sprite_ActorFace;
 
-    Sprite_ActorFace._faceWidth = 144;
-    Sprite_ActorFace._faceHeight = 144;
+    Sprite_ActorFace._faceWidth = 64;
+    Sprite_ActorFace._faceHeight = 64;
 
     Sprite_ActorFace.prototype.initialize = function () {
       Sprite.prototype.initialize.call(this);
@@ -568,6 +568,7 @@ Imported.dsJobChange = true;
       this._faceName = "";
       this._faceIndex = 0;
       this._drawRect = new Rectangle();
+      this._showBattler = true;
     };
 
     Sprite_ActorFace.prototype.setActor = function (actor) {
@@ -597,12 +598,20 @@ Imported.dsJobChange = true;
     };
 
     Sprite_ActorFace.prototype.updateBitmap = function () {
-      var name = this._actor.faceName();
-      var index = this._actor.faceIndex();
-      if (this._faceName !== name || this._faceIndex !== index) {
-        this._faceName = name;
-        this._faceIndex = index;
-        this.bitmap = ImageManager.loadFace(name);
+      if (this._showBattler) {
+        var name = this._actor.battlerName();
+        if (this._faceName !== name) {
+            this._faceName = name;
+            this.bitmap = ImageManager.loadSvActor(name);
+        }
+      } else {
+        var name = this._actor.faceName();
+        var index = this._actor.faceIndex();
+        if (this._faceName !== name || this._faceIndex !== index) {
+          this._faceName = name;
+          this._faceIndex = index;
+          this.bitmap = ImageManager.loadFace(name);
+        }
       }
     };
 
@@ -997,7 +1006,7 @@ Imported.dsJobChange = true;
         var h = this.height - this.padding * 2;
         var y = h / 2 - this.lineHeight() * 1.5;
         var width = w - (162 + 120 * 2) - this.textPadding();
-        this.drawActorFace(this._actor, 120, 0, 144, h);
+        // this.drawActorFace(this._actor, 120, 0, 144, h);
         this.drawActorSimpleStatus(this._actor, 120 + 162, y, width);
       }
     };

@@ -203,7 +203,7 @@ Game_Action.prototype.setForceForAll = function(enabled)
  */
 Game_Action.prototype.isForceForAll = function()
 {
-    return this._forceForAll;
+    return this._forceForAll || this.subject().isNextActionForceForAll();
 };
 
 /**

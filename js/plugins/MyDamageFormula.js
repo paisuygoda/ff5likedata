@@ -111,7 +111,6 @@
 			elemRate = elements.length === 0 ? 1 : Math.max.apply(null, elements.map(function(elementId) {
 				return target.elementRate(elementId, this.subject());
 			}, this));
-			console.log(elemRate);
 			if (elemRate < 2) return physicalRate * elemRate;
 			var swordRate = this.subject().getSwordMagiRate(elemRate);
 			// ダメ計途中であんまよくないが即死付与してみる

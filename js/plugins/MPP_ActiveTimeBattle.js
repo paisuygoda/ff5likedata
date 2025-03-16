@@ -1174,6 +1174,7 @@ Game_BattlerBase.prototype.initMembers = function() {
     Alias.GaBa_initMembers.apply(this, arguments);
     this.resetBattleParam();
     this._at = 0;
+    this._turn = 1;
 };
 
 //235
@@ -1194,6 +1195,7 @@ Game_BattlerBase.prototype.die = function() {
 
 Game_BattlerBase.prototype.onMadeAction = function() {
     this.setDecided(1);
+    this._turn++;
     this._ct = 0;
     this._maxCt = 0;
     var action = this.currentAction();

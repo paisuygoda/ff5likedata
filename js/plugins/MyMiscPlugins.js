@@ -845,6 +845,8 @@
       return [];
     } else if (action.isForAll()) {
       return $gameParty.members();
+    } else if (this.user().isNextActionForceForAll()) {
+      return $gameParty.members();
     } else {
       return [$gameParty.members()[this._actorWindow.index()]];
     }
@@ -882,6 +884,11 @@
       else return "堅丑の構え";
     } else return this._list[index].name;
   };
+
+  // 素手判定
+  Game_Actor.prototype.isBareHands = function () {
+    return this._equips[0] && this._equips[1] && this._equips[0]._itemId == 1 && this._equips[1]._itemId == 1;
+  }
 
   // 魔法剣アニメーション切り替え
   Game_Actor.prototype.attackAnimationId1 = function () {
@@ -1248,7 +1255,6 @@
   MyMiPl_GaIn_command125 = Game_Interpreter.prototype.command125;
   Game_Interpreter.prototype.command125 = function() {
     gainedGold = this._params[2];
-    console.log(this._params);
     return MyMiPl_GaIn_command125.call(this);
   };
   MyMiPl_GaIn_command126 = Game_Interpreter.prototype.command126;
@@ -1283,4 +1289,21 @@
     text = text.replace(/\x1bSkillName\[(\d+)\]/g, (_,n)=>$dataSkills[n].name);
     return text;
   };
+
+  // 顔を描画する場面では基本的にSVキャラを表示する
+  Window_Base.prototype.drawActorFace = function(actor, x, y, width, height) {
+    // TODO: ここのカエルの表示、正しいか確認する
+		if (actor && actor.isStateAffected(12)) this.drawSvCharacter('frog', x, y, width, height);
+    else this.drawSvCharacter(actor.battlerName(), x, y, width, height);
+  };
+  Window_Base.prototype.drawSvCharacter = function(faceName, x, y, width, height) {
+    width = width || Window_Base._faceWidth;
+    height = height || Window_Base._faceWidth;
+    var bitmap = ImageManager.loadSvActor(faceName);
+    var sw = 64;
+    var sh = 64;
+    var dx = Math.floor(x + Math.max(width - sw, 0) / 2);
+    var dy = Math.floor(y + Math.max(height - sh, 0) / 2);
+    this.contents.blt(bitmap, 0, 0, sw, sh, dx, dy);
+};
 })();
