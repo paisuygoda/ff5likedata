@@ -477,7 +477,7 @@ Yanfly.Equip.Game_Actor_changeEquip = Game_Actor.prototype.changeEquip;
 Game_Actor.prototype.changeEquip = function(slotId, item) {
     if (!this._equips[slotId]
       // 素手を収納しない
-      || (this._equips[slotId]._dataClass == 'weapon' && this._equips[slotId]._itemId == 1)) this._equips[slotId] = new Game_Item();
+      || (this._equips[slotId]._itemId == 1)) this._equips[slotId] = new Game_Item();
     Yanfly.Equip.Game_Actor_changeEquip.call(this, slotId, item);
     // 手に何も持っていなければ素手を表示
     if(this._equips[0]._itemId == 0) this._equips[0].setEquip(true, 1);

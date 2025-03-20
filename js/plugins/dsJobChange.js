@@ -366,6 +366,14 @@ Imported.dsJobChange = true;
     }
   };
 
+  Game_Actor.prototype.setDummyActor = function (dummyFlag) {
+    return this._isDummy = dummyFlag;
+  };
+
+  Game_Actor.prototype.isDummyActor = function () {
+    return this._isDummy;
+  };
+
   Game_Actor.prototype.isSpriteVisible = function () {
     if (!SceneManager.isCurrentScene(Scene_Battle)) {
       return true;
@@ -410,8 +418,10 @@ Imported.dsJobChange = true;
       }
     }
     // 「たたかう」「アイテム」があったら消す
-    $gameParty.loseItem($dataArmors[this._actorId * 100 + 85], 1);
-    $gameParty.loseItem($dataArmors[this._actorId * 100 + 86], 1);
+    if (!this.isDummyActor()) {
+      $gameParty.loseItem($dataArmors[this._actorId * 100 + 85], 1);
+      $gameParty.loseItem($dataArmors[this._actorId * 100 + 86], 1);
+    }
 
     if (!this.isIgnoreChangeImage()) {
       var data = $dataClasses[classId];
@@ -447,7 +457,7 @@ Imported.dsJobChange = true;
     // コマンド掃除
     this.releaseUnequippableAbs(true);
     // 現在ものまね師の場合
-    if (classId === 21) {
+    if (!this.isDummyActor() && classId === 21) {
       $gameParty.gainItem($dataArmors[this._actorId * 100 + 85], 1);
       $gameParty.gainItem($dataArmors[this._actorId * 100 + 86], 1);
     }
@@ -1323,6 +1333,7 @@ Imported.dsJobChange = true;
         WiJo_processCursorMove.call(this);
         if (this.index() !== lastIndex && this._actor) {
           const actor = JsonEx.makeDeepCopy(this._actor);
+          actor.setDummyActor(true);
           actor.changeClassEx(this.selectedClassId(), exports.Param.KeepExp);
           this._statusWindow.setActor(actor);
         }

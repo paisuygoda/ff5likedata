@@ -1306,4 +1306,20 @@
     var dy = Math.floor(y + Math.max(height - sh, 0) / 2);
     this.contents.blt(bitmap, 0, 0, sw, sh, dx, dy);
 };
+
+// メニューでアクター選択時は場所記憶しない
+Scene_Menu.prototype.commandPersonal = function() {
+  this._statusWindow.setFormationMode(false);
+  this._statusWindow.select(0);
+  this._statusWindow.activate();
+  this._statusWindow.setHandler('ok',     this.onPersonalOk.bind(this));
+  this._statusWindow.setHandler('cancel', this.onPersonalCancel.bind(this));
+};
+Scene_Menu.prototype.commandFormation = function() {
+    this._statusWindow.setFormationMode(true);
+    this._statusWindow.select(0);
+    this._statusWindow.activate();
+    this._statusWindow.setHandler('ok',     this.onFormationOk.bind(this));
+    this._statusWindow.setHandler('cancel', this.onFormationCancel.bind(this));
+};
 })();

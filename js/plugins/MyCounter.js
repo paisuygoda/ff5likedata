@@ -40,7 +40,7 @@
 
 			obj.counters = [];
 			var hpCondition = 0;
-			var hitCondition = 1;
+			var hitCondition = 0;
 			var attributeCondition = 0;
 			var skillTypeCondition = 0;
 
@@ -66,7 +66,7 @@
 					});
 
 					hpCondition = 0;
-					hitCondition = 1;
+					hitCondition = 0;
 					attributeCondition = 0;
 					skillTypeCondition = 0;
 				}
@@ -179,8 +179,8 @@
 		if (this.counterHappenGeneral(subject, target)) {
 			var action = this._action;
 			target.counters().some(function(counter) {
-					if ((counter.hit === 0 && action.isMagical())
-						|| (counter.hit === 1 && action.isPhysical())
+					if ((counter.hit === 0 && action.isPhysical())
+						|| (counter.hit === 1 && action.isMagical())
 						|| (counter.hit === 2 && !action.isCertainHit())
 						|| (counter.hit === 3 && action.isCertainHit())
 						|| (counter.hit === 4)) var hit = true;

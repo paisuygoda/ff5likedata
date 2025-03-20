@@ -363,6 +363,9 @@ Game_Actor.prototype.changeSkillEquip = function (slotId, item) {
 
 // ジョブアビリティアイテムは入手しないようにする
 Game_Actor.prototype.tradeItemWithParty = function (newItem, oldItem) {
+  if(this.isDummyActor()) {
+    return false;
+  }
   if (newItem && !$gameParty.hasItem(newItem)) {
     return false;
   } else {
