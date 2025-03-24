@@ -1322,4 +1322,12 @@ Scene_Menu.prototype.commandFormation = function() {
     this._statusWindow.setHandler('ok',     this.onFormationOk.bind(this));
     this._statusWindow.setHandler('cancel', this.onFormationCancel.bind(this));
 };
+
+// 敵のステータス表示アイコンのサイズを1/4にする
+Sprite_Enemy.prototype.createStateIconSprite = function() {
+  this._stateIconSprite = new Sprite_StateIcon();
+  this._stateIconSprite.scale.x = 0.5;
+  this._stateIconSprite.scale.y = 0.5;
+  this.addChild(this._stateIconSprite);
+};
 })();
