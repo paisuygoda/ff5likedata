@@ -1283,6 +1283,15 @@ Game_Battler.prototype.setAt = function(value) {
     }
 };
 
+Game_Battler.prototype.forceResetAt = function() {
+    Game_BattlerBase.prototype.setAt.call(this, 0);
+    if (this._decided > 0 && this.atRate() < 1) {
+        this.setDecided(0);
+        this.clearActions();
+        BattleManager.deleteDeactiveBattler();
+    }
+};
+
 Game_Battler.prototype.gainAt = function(value) {
     this.setAt(this.atRate() + value);
 };

@@ -1352,24 +1352,31 @@ Imported.dsJobChange = true;
 
     Window_JobChange.prototype.cursorUp = function (wrap) {
       var index = this.index();
-      var maxItems = this.maxItems();
+      var maxItems = this._classIdTable.length;
       var maxCols = this.maxCols();
       var diff;
-      if (index < 7) diff = 15;
+      if (index < 7) diff = maxItems > 15 ? 15 : 7;
       else if (index < 14) diff = -7;
       else diff = -8;
-      this.select(index + diff);
+      const newIndex = index + diff;
+      this.select(newIndex >= maxItems ? maxItems - 1 : newIndex);
     };
 
     Window_JobChange.prototype.cursorDown = function (wrap) {
       var index = this.index();
-      var maxItems = this.maxItems();
+      var maxItems = this._classIdTable.length;
       var maxCols = this.maxCols();
       var diff;
-      if (index < 7 || index === 14) diff = 7;
-      else if (index < 14) diff = 8;
-      else diff = -15;
-      this.select(index + diff);
+      if (maxItems > 15) {
+        if (index < 7 || index === 14) diff = 7;
+        else if (index < 14) diff = 8;
+        else diff = -15;
+      } else {
+        if (index < 7) diff = 7;
+        else diff = -7;
+      }
+      const newIndex = index + diff;
+      this.select(newIndex >= maxItems ? maxItems - 1 : newIndex);
     };
 
     Window_JobChange.prototype.itemRect = function (index) {

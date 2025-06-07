@@ -900,7 +900,7 @@ Window_StatCompare.prototype.drawCurrentParam = function(y, paramId) {
     var x = this.contents.width - this.textPadding() ;
     x -= this._paramValueWidth + this._arrowWidth + this._bonusValueWidth + 35 + (paramId < 2 ? this.textWidth('0') : 0);
     this.resetTextColor();
-    var actorparam = Yanfly.Util.toGroup(this._actor.param(paramId));
+    var actorparam = Yanfly.Util.toGroup(Math.round(this._actor.param(paramId)));
     this.drawText(actorparam, x, y, this._paramValueWidth, 'right');
 };
 
@@ -917,7 +917,7 @@ Window_StatCompare.prototype.drawNewParam = function(y, paramId) {
     x -= this._bonusValueWidth + 50;
     var newValue = this._tempActor.param(paramId);
     var diffvalue = newValue - this._actor.param(paramId);
-    var actorparam = Yanfly.Util.toGroup(newValue);
+    var actorparam = Yanfly.Util.toGroup(Math.round(newValue));
     this.changeTextColor(this.paramchangeTextColor(diffvalue));
     this.drawText(actorparam, x, y, this._paramValueWidth, 'right');
 };
@@ -930,7 +930,7 @@ Window_StatCompare.prototype.drawParamDifference = function(y, paramId) {
     if (diffvalue === 0) return;
     var actorparam = Yanfly.Util.toGroup(newValue);
     this.changeTextColor(this.paramchangeTextColor(diffvalue));
-    var text = Yanfly.Util.toGroup(diffvalue);
+    var text = Yanfly.Util.toGroup(Math.round(diffvalue));
     if (diffvalue > 0) {
       text = ' (+' + text + ')';
     } else {

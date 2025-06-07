@@ -128,6 +128,10 @@
 		var level0 = level1 || (this.addedSkillTypes().contains(this.convertBackSkillType(skillType, 0)));
 		return level0 && level1 && level2;
 	};
+	
+	Game_Enemy.prototype.haveSatisfyingSkill = function(skillType, abilityLevel) {
+		return true;
+	};
 
 	Game_BattlerBase.prototype.convertBackSkillType = function(skillType, abilityLevel) {
 		if (abilityLevel == 0) {

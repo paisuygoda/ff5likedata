@@ -2739,7 +2739,7 @@ Window_Status.prototype.drawParameters = function(x, y) {
       this.changeTextColor(this.systemColor());
       this.drawText(TextManager.param(paramId), x, y2, 120);
       this.resetTextColor();
-      var actorParam = Yanfly.Util.toGroup(this._actor.param(paramId));
+      var actorParam = Yanfly.Util.toGroup(Math.round(this._actor.param(paramId)));
       var dw = this.textWidth(Yanfly.Util.toGroup(this._actor.paramMax(paramId + 2)));
       this.drawText(actorParam, x + 140, y2, dw, 'right');
     }

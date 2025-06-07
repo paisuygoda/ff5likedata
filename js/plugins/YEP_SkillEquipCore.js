@@ -1063,7 +1063,7 @@ Window_SkillStatCompare.prototype.drawCurrentParam = function (y, paramId) {
   var x = this.contents.width - this.textPadding();
   x -= this._paramValueWidth + this._arrowWidth + this._bonusValueWidth + 80;
   this.resetTextColor();
-  var actorparam = Yanfly.Util.toGroup(this._actor.param(paramId));
+  var actorparam = Yanfly.Util.toGroup(Math.round(this._actor.param(paramId)));
   this.drawText(actorparam, x, y, this._paramValueWidth, "right");
 };
 
@@ -1080,7 +1080,7 @@ Window_SkillStatCompare.prototype.drawNewParam = function (y, paramId) {
   x -= this._bonusValueWidth + 60;
   var newValue = this._tempActor.param(paramId);
   var diffvalue = newValue - this._actor.param(paramId);
-  var actorparam = Yanfly.Util.toGroup(newValue);
+  var actorparam = Yanfly.Util.toGroup(Math.round(newValue));
   this.changeTextColor(this.paramchangeTextColor(diffvalue));
   this.drawText(actorparam, x, y, this._paramValueWidth, "right");
 };

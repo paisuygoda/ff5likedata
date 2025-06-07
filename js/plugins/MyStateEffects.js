@@ -370,7 +370,7 @@
 
 	Game_Unit.prototype.isAllDead = function() {
 		var fineMembers = this.members().filter(function(member) {
-            return !(member.isAppeared() && (member.isDeathStateAffected() || member.isStateAffected(24) || member.isStateAffected(25)));
+            return !(member.isHidden() || (member.isDeathStateAffected() || member.isStateAffected(24) || member.isStateAffected(25)));
         });
 		return fineMembers.length === 0
 				&& BattleManager._specialSkills.length === 0 
